@@ -12,7 +12,7 @@ import org.springframework.context.ApplicationContext;
 public class Main {
     public static void main(String[] args) {
         ApplicationContext applicationContext
-                = SpringApplication.run(MediaNoteApplication.class);
-        applicationContext.getBean(HelloWorldServiceImpl.class).printString();
+                = SpringApplication.run(Main.class);
+        applicationContext.getBean(ServiceBean.class).printHello();
     }
 }
