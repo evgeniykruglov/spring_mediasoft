@@ -4,15 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-
 @SpringBootApplication
-public class Main {
+public class App {
     public static void main(String[] args) {
         ApplicationContext applicationContext
-                = SpringApplication.run(Main.class);
+                = SpringApplication.run(App.class);
         applicationContext.getBean(ServiceBean.class).printHello();
     }
 }
