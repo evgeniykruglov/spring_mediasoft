@@ -2,37 +2,26 @@ package dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 import lombok.Getter;
-import org.springframework.lang.Nullable;
 
 import java.util.Random;
+import java.util.UUID;
 
 
 @Getter
 public class UserDto {
-    @JsonProperty("id")
-    private final long id;
+    @JsonProperty("uuid")
+    private final UUID uuid;
     @JsonProperty("name")
     private final String name;
     @JsonProperty("info")
     private final String info;
 
+
     @JsonCreator
-    public UserDto(String name, String info) {
-        this.id = Math.abs(new Random().nextLong());
+    public UserDto(@JsonProperty("uuid") UUID uuid, @JsonProperty("name") String name, @JsonProperty("info") String info) {
+        this.uuid = uuid;
         this.name = name;
         this.info = info;
     }
-
-    @JsonCreator
-    public UserDto(long id, String name, String info) {
-        this.id = id;
-        this.name = name;
-        this.info = info;
-    }
-
-
-
-  
 }

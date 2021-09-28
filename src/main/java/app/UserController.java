@@ -1,10 +1,11 @@
 package app;
 
 import dto.UserDto;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
+import temp.Lists;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -12,24 +13,28 @@ public class UserController {
 
     @GetMapping("/all")
     public List<UserDto> getUsers() {
-        return List.of(
-                new UserDto("testName1", "testInfo1"),
-                new UserDto("testName2", "testInfo2"));
+        return Lists.userDtoList;
     }
 
-    @GetMapping("/user/{id}")
-    public UserDto getUser(@PathVariable long id) {
-        return new UserDto(id, "testName3", "testInfo3");
+    @GetMapping("/user/{uuid}")
+    public UserDto getUser(@PathVariable UUID uuid) {
+        return Lists.userDtoList.stream().peek(it-> it.getUuid().equals(uuid)).findFirst().get();
     }
 
-    @PostMapping("/user")
+    @PostMapping(value = "/user", consumes = {"application/json"})
     public UserDto createUser(@RequestBody UserDto user) {
-        return new UserDto(user.getName(), user.getInfo());
+        UserDto newUser = new UserDto(UUID.randomUUID(), user.getName(), user.getInfo());
+        Lists.userDtoList.add(newUser);
+        return getUser(newUser.getUuid());
     }
 
-    @PutMapping("/user/{id}")
-    public UserDto updateUser(@RequestBody UserDto user, @PathVariable long id) {
-        return new UserDto(id, user.getName(), user.getInfo());
+    @PutMapping(value = "/user/{uuid}", consumes = {"application/json"})
+    public UserDto updateUser(@RequestBody UserDto user, @PathVariable UUID uuid) {
+        UserDto originUser = getUser(uuid);
+        UserDto updatedUser = new UserDto(originUser.getUuid(), user.getName(), user.getInfo());
+        Lists.userDtoList.remove(originUser);
+        Lists.userDtoList.add(updatedUser);
+        return updatedUser;
     }
 }
 
