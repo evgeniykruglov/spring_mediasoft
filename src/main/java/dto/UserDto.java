@@ -20,10 +20,19 @@ public class UserDto {
 
     @JsonCreator
     public UserDto(String name, String info) {
-        this.id = new Random().nextLong();
+        this.id = Math.abs(new Random().nextLong());
         this.name = name;
         this.info = info;
     }
+
+    @JsonCreator
+    public UserDto(long id, String name, String info) {
+        this.id = id;
+        this.name = name;
+        this.info = info;
+    }
+
+
 
   
 }
