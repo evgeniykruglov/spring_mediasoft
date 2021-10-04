@@ -1,6 +1,6 @@
 .idea
-gradle
-
+/flyway.properties
+/src/main/resources/application.properties
 # Compiled class file
 *.class
 

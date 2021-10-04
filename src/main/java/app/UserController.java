@@ -18,7 +18,7 @@ public class UserController {
 
     @GetMapping("/user/{uuid}")
     public UserDto getUser(@PathVariable UUID uuid) {
-        return Lists.userDtoList.stream().peek(it-> it.getUuid().equals(uuid)).findFirst().get();
+        return Lists.userDtoList.stream().filter(it-> it.getUuid().equals(uuid)).findFirst().get();
     }
 
     @PostMapping(value = "/user", consumes = {"application/json"})
