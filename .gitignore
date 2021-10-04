@@ -1,5 +1,6 @@
 .idea
-
+/flyway.properties
+/src/main/resources/application.properties
 # Compiled class file
 *.class
 
