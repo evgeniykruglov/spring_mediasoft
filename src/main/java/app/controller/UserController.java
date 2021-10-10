@@ -22,5 +22,26 @@ public class UserController {
     public Optional<User> getUser(@PathVariable Long id) {
         return userRepository.findById(id);
     }
+
+    @PostMapping(value = "", consumes = {"application/json"})
+    public User createUser(@RequestBody User user) {
+        userRepository.save(user);
+        return user;
+    }
+
+
+    @DeleteMapping(value = "/user/{id}", consumes = {"application/json"})
+    public void deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+    }
+
+    @PutMapping(value = "/user/{id}", consumes = {"application/json"})
+    public User updateUser(@RequestBody User user, @PathVariable Long id) {
+        User _user = userRepository.findById(id).orElseThrow();
+        _user.setInfo(user.getInfo());
+        _user.setName(user.getName());
+        userRepository.saveAndFlush(_user);
+        return user;
+    }
 }
 
