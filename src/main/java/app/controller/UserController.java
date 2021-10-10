@@ -1,9 +1,9 @@
 package app.controller;
 
 import app.dto.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import app.repo.UserRepository;
+import app.service.UserService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
