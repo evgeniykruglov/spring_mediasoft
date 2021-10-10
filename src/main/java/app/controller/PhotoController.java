@@ -2,11 +2,13 @@ package app.controller;
 
 import app.dto.Photo;
 import app.repo.PhotoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/photo")
 public class PhotoController {
+    @Autowired
     private PhotoRepository photoRepository;
 
     @GetMapping("/user/{userId}")

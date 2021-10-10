@@ -2,7 +2,7 @@ package app.controller;
 
 import app.dto.User;
 import app.repo.UserRepository;
-import app.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -10,13 +10,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
     private UserRepository userRepository;
-
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping
     public Iterable<User> getUsers() {
