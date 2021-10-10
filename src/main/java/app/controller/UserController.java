@@ -10,8 +10,13 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Autowired
     private UserRepository userRepository;
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public Iterable<User> getUsers() {
@@ -28,7 +33,6 @@ public class UserController {
         userRepository.save(user);
         return user;
     }
-
 
     @DeleteMapping(value = "/user/{id}", consumes = {"application/json"})
     public void deleteUser(@PathVariable Long id) {

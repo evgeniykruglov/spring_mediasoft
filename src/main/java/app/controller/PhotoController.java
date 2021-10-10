@@ -2,12 +2,7 @@ package app.controller;
 
 import app.dto.Photo;
 import app.repo.PhotoRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/photo")
@@ -16,7 +11,12 @@ public class PhotoController {
 
     @GetMapping("/user/{userId}")
     public Iterable<Photo> getUserPhotos(@PathVariable Long userId) {
-        return List.of(null);
+        return photoRepository.findPhotosByUserId(userId);
+    }
 
+    @PostMapping(value = "/new", consumes = {"application/json"})
+    public Photo addPhoto(@RequestBody Photo photo) {
+        photoRepository.save(photo);
+        return photo;
     }
 }
