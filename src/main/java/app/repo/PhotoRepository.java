@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
-    @Query("select p from Photo p where p.user = ?1")
-    List<Photo> findPhotosByUserId(Long userId);
+    @Query("select p from Photo p where p.user.id = ?1")
+    List<Photo> findPhotosByUserId(Long user);
 }

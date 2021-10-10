@@ -20,7 +20,8 @@ public class Photo {
     @JsonProperty("path")
     private String path;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
     @JsonCreator
