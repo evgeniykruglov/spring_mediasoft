@@ -82,4 +82,13 @@ public class UserController {
             throw new IllegalArgumentException(ExceptionMessages.USERNAME_SHOULD_NOT_BE_NULL_OR_EMPTY);
         return userRepository.findUsersByUserName(name);
     }
+
+    @GetMapping("/findBy")
+    public Iterable<User> getUsersBy(
+            @RequestParam(value = "id", required = false) Long id,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "email", required = false) String email) {
+
+        return userRepository.findUsersBy(id, name, email);
+    }
 }
