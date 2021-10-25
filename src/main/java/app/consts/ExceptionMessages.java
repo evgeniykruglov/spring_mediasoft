@@ -5,4 +5,6 @@ public class ExceptionMessages {
     public static final String USERNAME_SHOULD_NOT_BE_NULL_OR_EMPTY = "User's `name` should not be null or empty";
     public static final String USER_NOT_FOUND = "User not found";
     public static final String PATH_SHOULD_NOT_BE_NULL_OR_EMPTY = "Photo's `path` should not be null or empty";
+    public static final String EMAIL_SHOULD_NOT_BE_NULL_OR_EMPTY = "`email` shouldn't be null or empty";
+    public static final String EMAIL_IS_NOT_VALID = "`email` is not valid";
 }

@@ -24,12 +24,15 @@ public class User {
     private String name;
     @JsonProperty("info")
     private String info;
+    @JsonProperty("email")
+    private String email;
 
 
     @JsonCreator
     public User(@JsonProperty("id") Long id,
                 @JsonProperty("name") String name,
-                @JsonProperty("info") String info) {
+                @JsonProperty("info") String info,
+                @JsonProperty("email") String email) {
         this.id = id;
         this.name = name;
         this.info = info;
@@ -38,9 +41,4 @@ public class User {
     public User() {
 
     }
-/*    @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Photo> photo;*/
-
-
 }

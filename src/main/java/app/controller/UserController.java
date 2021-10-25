@@ -39,7 +39,6 @@ public class UserController {
         }
     }
 
-
     @PostMapping(value = "", consumes = {"application/json"})
     public User createUser(@RequestBody User user) {
         if (user.getName() == null || !user.getName().equals(""))
@@ -67,5 +66,29 @@ public class UserController {
             throw new NotFoundException(USER_NOT_FOUND);
         }
     }
-}
 
+    @GetMapping("/findByEmail")
+    public Iterable<User> getUsersByEmail(@RequestParam("email") String email) {
+        if (email == null || email.equals(""))
+            throw new IllegalArgumentException(ExceptionMessages.EMAIL_SHOULD_NOT_BE_NULL_OR_EMPTY);
+        else if (!email.contains("@."))
+            throw new IllegalArgumentException(ExceptionMessages.EMAIL_IS_NOT_VALID);
+        return userRepository.findUsersByUserEmail(email);
+    }
+
+    @GetMapping("/findByName")
+    public Iterable<User> getUsersByName(@RequestParam("name") String name) {
+        if (name == null || name.equals(""))
+            throw new IllegalArgumentException(ExceptionMessages.USERNAME_SHOULD_NOT_BE_NULL_OR_EMPTY);
+        return userRepository.findUsersByUserName(name);
+    }
+
+    @GetMapping("/findBy")
+    public Iterable<User> getUsersBy(
+            @RequestParam(value = "id", required = false) Long id,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "email", required = false) String email) {
+
+        return userRepository.findUsersBy(id, name, email);
+    }
+}

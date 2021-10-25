@@ -1,0 +1,1 @@
+alter table homework.user add column email varchar(256);

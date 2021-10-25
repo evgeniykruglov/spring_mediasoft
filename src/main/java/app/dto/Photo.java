@@ -26,7 +26,7 @@ public class Photo {
 
     @JsonCreator
     public Photo(@JsonProperty("id") Long id,
-                @JsonProperty("path") String path) {
+                 @JsonProperty("path") String path) {
         this.id = id;
         this.path = path;
     }
