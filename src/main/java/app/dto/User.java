@@ -22,8 +22,8 @@ public class User implements UserDetails {
     @JsonProperty("id")
     @JsonIgnore
     private Long id;
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("username")
+    private String username;
     @JsonProperty("info")
     private String info;
     @JsonProperty("email")
@@ -39,11 +39,11 @@ public class User implements UserDetails {
 
     @JsonCreator
     public User(@JsonProperty("id") Long id,
-                @JsonProperty("name") String name,
+                @JsonProperty("name") String username,
                 @JsonProperty("info") String info,
                 @JsonProperty("email") String email) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.info = info;
     }
 
@@ -52,7 +52,7 @@ public class User implements UserDetails {
     }
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override

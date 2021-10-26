@@ -12,10 +12,11 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryInterface {
     EntityManager em = null;
 
-    @Query("select u from User u where u.name like %?1%")
+    @Query("select u from User u where u.username like %?1%")
     List<User> findUsersByUserName(String name);
 
     @Query("select u from User u where u.email like %?1%")
     List<User> findUsersByUserEmail(String email);
 
+    User findByUsername(String name);
 }

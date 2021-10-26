@@ -6,6 +6,9 @@ import app.repo.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.retry.annotation.Retryable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +20,7 @@ import static app.consts.ExceptionMessages.USER_NOT_FOUND;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -41,7 +44,7 @@ public class UserController {
 
     @PostMapping(value = "", consumes = {"application/json"})
     public User createUser(@RequestBody User user) {
-        if (user.getName() == null || !user.getName().equals(""))
+        if (user.getUsername() == null || !user.getUsername().equals(""))
             throw new IllegalArgumentException(ExceptionMessages.USERNAME_SHOULD_NOT_BE_NULL_OR_EMPTY);
         userRepository.save(user);
         return user;
@@ -59,7 +62,7 @@ public class UserController {
         try {
             User _user = userRepository.findById(id).orElseThrow();
             _user.setInfo(user.getInfo());
-            _user.setName(user.getName());
+            _user.setUsername(user.getUsername());
             userRepository.saveAndFlush(_user);
             return user;
         } catch (NoSuchElementException e) {
@@ -76,7 +79,7 @@ public class UserController {
         return userRepository.findUsersByUserEmail(email);
     }
 
-    @GetMapping("/findByName")
+    @GetMapping("/findByName/partialMatch")
     public Iterable<User> getUsersByName(@RequestParam("name") String name) {
         if (name == null || name.equals(""))
             throw new IllegalArgumentException(ExceptionMessages.USERNAME_SHOULD_NOT_BE_NULL_OR_EMPTY);
@@ -90,5 +93,11 @@ public class UserController {
             @RequestParam(value = "email", required = false) String email) {
 
         return userRepository.findUsersBy(id, name, email);
+    }
+
+    @Override
+    @GetMapping("/findByName/fullMatch")
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 }
