@@ -5,7 +5,6 @@ import app.dto.User;
 import app.repo.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,8 +23,7 @@ public class UserController implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Retryable(IllegalArgumentException.class)
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = Throwable.class)
     @GetMapping
     public Iterable<User> getUsers() {
         return userRepository.findAll();
