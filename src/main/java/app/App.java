@@ -8,7 +8,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableRetry
 @SpringBootApplication
-@EnableSwagger2
+@EnableSwagger2 /* http://localhost:8080/swagger-ui/ */
 public class App {
     public static void main(String[] args) {
         ApplicationContext applicationContext
